@@ -1,0 +1,156 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="quiz.png" type="image/png" />
+  <title>Vernier Caliper Quiz</title>
+
+  <!-- ✅ Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* 🔹 Fade animation for transition */
+    .fade-out {
+      opacity: 0;
+      transition: opacity 1s ease;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body class="font-[Segoe_UI] bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+  <!-- 🦑 Fullscreen Intro Overlay -->
+  <div id="intro-screen" class="fixed inset-0 bg-gray-900 flex flex-col items-center justify-center text-center text-white z-50">
+    <img src="QUIZ_INTRO.png" alt="Squid Game Characters" class="w-80 h-auto mx-auto rounded-xl shadow-2xl mb-8">
+    <h2 class="text-3xl font-bold mb-3">Welcome to the Vernier Caliper Quiz!</h2>
+    <p class="text-gray-300 max-w-md mb-8">Let’s see how sharp your measurement skills are 👀<br>Click below to begin your self-evaluation.</p>
+    <button id="start-btn" class="bg-teal-500 hover:bg-teal-600 text-white font-semibold px-8 py-4 rounded-xl text-lg shadow-lg transition">
+      🎯 Time for Self-Evaluation
+    </button>
+  </div>
+
+  <!-- Header -->
+  <header class="bg-teal-600 text-white text-center py-6 text-2xl font-semibold shadow-md">
+    Vernier Caliper Quiz
+  </header>
+
+  <!-- Navigation -->
+  <nav class="bg-teal-100 flex justify-center py-3 space-x-4">
+    <a href="index.html" class="text-teal-900 font-semibold px-4 py-2 rounded-md hover:bg-teal-600 hover:text-white transition">Home</a>
+    <a href="quiz.html" class="text-teal-900 font-semibold px-4 py-2 rounded-md hover:bg-teal-600 hover:text-white transition">Quiz</a>
+  </nav>
+
+  <!-- Main Section -->
+  <main class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8 mt-8 mb-24 relative hidden" id="quiz-section">
+    <h2 class="text-center text-2xl font-bold text-indigo-900 mb-6">🧮 Test Your Knowledge</h2>
+
+    <!-- Quiz Container -->
+    <div id="quiz-container" class="space-y-4"></div>
+
+    <!-- Buttons -->
+    <div class="text-center mt-6 space-x-4">
+      <button id="submit-btn" class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition">Submit Quiz</button>
+      <button id="back-btn" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition">Back to Home</button>
+    </div>
+
+    <!-- Result Display -->
+    <div id="result" class="text-center text-lg font-bold text-teal-800 mt-6"></div>
+    <div id="comment" class="text-center text-md text-green-700 mt-2"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-teal-600 text-white text-center py-3 text-sm mt-auto fixed bottom-0 w-full shadow-md">
+    © Vernier Caliper Experiment 
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    const quizQuestions = [
+      { q: "1. What is the typical least count of a Vernier Caliper?", options: ["0.1 mm", "0.01 mm", "0.02 mm", "1 mm"], answer: 2 },
+      { q: "2. If the main scale reading is 3 mm and the 6th Vernier division coincides (LC = 0.02 mm), what is the total reading?", options: ["3.06 mm", "3.12 mm", "3.18 mm", "3.02 mm"], answer: 1 },
+      { q: "3. Zero error in a Vernier Caliper occurs when:", options: ["The zero of both scales coincide when jaws are closed", "The zero of Vernier does not coincide with main scale zero when jaws are closed", "The jaws are fully open", "The zero is beyond the main scale"], answer: 1 },
+      { q: "4. The least count (LC) of a Vernier Caliper is given by:", options: ["LC = 1 MSD × 10", "LC = 1 MSD - 1 VSD", "LC = 1 MSD / 1 VSD", "LC = 1 MSD + 1 VSD"], answer: 1 },
+      { q: "5. Which part of a Vernier Caliper is used for internal measurements?", options: ["External jaws", "Depth rod", "Internal jaws", "Main scale"], answer: 2 },
+      { q: "6. If one main scale division = 1 mm and least count = 0.02 mm, what is one Vernier division (VSD)?", options: ["0.98 mm", "0.99 mm", "1.01 mm", "1.02 mm"], answer: 1 },
+      { q: "7. The depth rod of a Vernier Caliper is used to measure:", options: ["Internal diameter", "External diameter", "Depth of holes or slots", "Thickness of thin plates"], answer: 2 },
+      { q: "8. Calculate total reading: MSR = 2.5 mm, Vernier coincidence = 7, LC = 0.02 mm.", options: ["2.12 mm", "2.64 mm", "2.14 mm", "2.64 cm"], answer: 1 },
+      { q: "9. Vernier Calipers provide higher accuracy than a normal scale because:", options: ["They are made of metal", "They use two scales for fine readings", "They have a magnifying lens", "They can measure large objects"], answer: 1 },
+      { q: "10. When the zero of the Vernier scale is to the left of the main scale zero on closure, the zero error is:", options: ["Positive", "Negative", "Zero", "Cannot be determined"], answer: 1 }
+    ];
+
+    const container = document.getElementById("quiz-container");
+    const result = document.getElementById("result");
+    const comment = document.getElementById("comment");
+    const introScreen = document.getElementById("intro-screen");
+    const quizSection = document.getElementById("quiz-section");
+
+    // ✅ Start Quiz
+    document.getElementById("start-btn").addEventListener("click", () => {
+      introScreen.classList.add("fade-out");
+      setTimeout(() => {
+        introScreen.style.display = "none";
+        quizSection.classList.remove("hidden");
+        displayQuiz();
+      }, 1000);
+    });
+
+    // ✅ Display Questions
+    function displayQuiz() {
+      quizQuestions.forEach((q, i) => {
+        const block = document.createElement("div");
+        block.className = "bg-indigo-50 rounded-lg p-4 shadow-sm hover:bg-indigo-100 transition";
+        block.innerHTML = `
+          <b class="block mb-2 text-indigo-900">${q.q}</b>
+          ${q.options.map((opt, idx) => `
+            <label class="block cursor-pointer p-1 hover:text-indigo-700">
+              <input type="radio" name="q${i}" value="${idx}" class="mr-2 accent-teal-600"> ${opt}
+            </label>
+          `).join('')}
+        `;
+        container.appendChild(block);
+      });
+    }
+
+    // ✅ Quiz Evaluation
+    document.getElementById("submit-btn").addEventListener("click", () => {
+      let score = 0;
+      quizQuestions.forEach((q, i) => {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        const questionBlock = container.children[i];
+        const labels = questionBlock.querySelectorAll("label");
+
+        labels.forEach((label, idx) => {
+          label.classList.remove("bg-green-100", "bg-red-100", "rounded");
+          if (idx === q.answer) label.classList.add("bg-green-100", "rounded");
+        });
+
+        if (selected) {
+          if (parseInt(selected.value) === q.answer) {
+            score++;
+          } else {
+            labels[parseInt(selected.value)].classList.add("bg-red-100", "rounded");
+          }
+        }
+      });
+
+      // Feedback
+      let feedback = "";
+      if (score === 10) feedback = "🌟 Excellent! You’re a Vernier Caliper Master!";
+      else if (score >= 8) feedback = "💪 Great Job! You really understand measurements well!";
+      else if (score >= 5) feedback = "🙂 Good attempt! Revise a bit more and you’ll ace it!";
+      else if (score >= 3) feedback = "😅 Keep practicing! You’re getting there.";
+      else feedback = "😢 Don’t worry! Review the concepts and try again.";
+
+      result.innerHTML = `✅ You scored <b>${score}</b> out of <b>${quizQuestions.length}</b>!`;
+      comment.innerHTML = feedback;
+    });
+
+    // ✅ Back to Home
+    document.getElementById("back-btn").addEventListener("click", () => {
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>
