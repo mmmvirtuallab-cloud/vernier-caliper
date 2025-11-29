@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="icon_caliper.png" type="image/png" />
+  <title>Vernier Caliper Experiment</title>
+
+  <!-- ✅ Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="font-[Segoe_UI] bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-blue-600 text-white text-center py-6 text-2xl font-semibold shadow-md">
+    Vernier Caliper Experiment
+  </header>
+
+  <!-- Navigation -->
+  <nav class="bg-blue-100 flex justify-center py-3 space-x-4">
+    <a href="index.html" class="text-blue-900 font-semibold px-4 py-2 rounded-md hover:bg-blue-600 hover:text-white transition">Home</a>
+    <a href="parts.html" class="text-blue-900 font-semibold px-4 py-2 rounded-md hover:bg-blue-600 hover:text-white transition">Parts Description</a>
+    <a href="external.html" class="text-blue-900 font-semibold px-4 py-2 rounded-md hover:bg-blue-600 hover:text-white transition">External Measurement</a>
+    <a href="internal.html" class="text-blue-900 font-semibold px-4 py-2 rounded-md hover:bg-blue-600 hover:text-white transition">Internal Measurement</a>
+    <a href="quiz.html" class="text-blue-900 font-semibold px-4 py-2 rounded-md hover:bg-blue-600 hover:text-white transition">Quiz</a>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8 mt-8 mb-24">
+
+    <!-- Introduction Section -->
+    <section id="introduction">
+      <h2 class="text-center text-2xl font-bold text-indigo-900 mb-4">📏 Introduction to Vernier Caliper</h2>
+      <p class="text-justify leading-relaxed text-[1.05rem]">
+        The <b>Vernier Caliper</b> is a precision instrument used to measure dimensions such as the length, diameter, and depth of an object with a high degree of accuracy. 
+        It consists of two main scales — the <b>Main Scale</b> and the <b>Vernier Scale</b> — that work together to provide readings with a least count as small as <b>0.02 mm</b>.
+        <br><br>
+        Vernier Calipers are widely used in laboratories, workshops, and engineering industries for both <b>internal</b> and <b>external measurements</b>. 
+        The instrument provides a clear understanding of mechanical measurement principles and helps develop accuracy and precision in experimental practices.
+      </p>
+
+      <img src="Vernier.jpg" alt="Vernier Caliper Diagram"
+           class="block mx-auto mt-6 max-w-[90%] rounded-xl shadow-md">
+    </section>
+
+    <!-- Procedure Section -->
+    <section id="procedure" class="mt-12">
+      <h2 class="text-center text-2xl font-bold text-indigo-900 mb-6">⚙️ Measurement Procedure</h2>
+
+      <div class="space-y-4">
+
+        <details class="bg-indigo-50 rounded-lg shadow-sm p-4 hover:bg-indigo-100 transition">
+          <summary class="font-semibold text-lg cursor-pointer text-gray-800">Step 1: Prepare the Vernier Caliper</summary>
+          <p class="mt-2 text-gray-700">Ensure the Vernier Caliper is clean and free from dust. Close the jaws gently and confirm that the zero of the main and Vernier scales coincide. Note any zero error if present.</p>
+        </details>
+
+        <details class="bg-indigo-50 rounded-lg shadow-sm p-4 hover:bg-indigo-100 transition">
+          <summary class="font-semibold text-lg cursor-pointer text-gray-800">Step 2: External Measurement</summary>
+          <p class="mt-2 text-gray-700">Place the object between the external jaws and gently tighten until firm contact is made. Record the main scale reading (MSR) just before the Vernier zero.</p>
+        </details>
+
+        <details class="bg-indigo-50 rounded-lg shadow-sm p-4 hover:bg-indigo-100 transition">
+          <summary class="font-semibold text-lg cursor-pointer text-gray-800">Step 3: Internal Measurement</summary>
+          <p class="mt-2 text-gray-700">Insert the internal jaws into the hollow space of the object and expand them until they touch the inner surface. Take the MSR and note which Vernier division coincides with the main scale.</p>
+        </details>
+
+        <details class="bg-indigo-50 rounded-lg shadow-sm p-4 hover:bg-indigo-100 transition">
+          <summary class="font-semibold text-lg cursor-pointer text-gray-800">Step 4: Depth Measurement</summary>
+          <p class="mt-2 text-gray-700">Place the base of the Vernier Caliper on the top surface and extend the depth rod into the object’s cavity until it touches the bottom. Record the reading as before.</p>
+        </details>
+
+        <details class="bg-indigo-50 rounded-lg shadow-sm p-4 hover:bg-indigo-100 transition">
+          <summary class="font-semibold text-lg cursor-pointer text-gray-800">Step 5: Calculation and Correction</summary>
+          <p class="mt-2 text-gray-700">Use the formula <b>Total Reading = MSR + (VSC × Least Count)</b>. Apply zero correction if any zero error is present, and repeat the measurement for accuracy.</p>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- Simulation Button -->
+    <div class="text-center mt-10">
+      <a href="external.html">
+        <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition">
+          Let's Measure!
+        </button>
+      </a>
+    </div>
+
+  </main>
+
+</body>
+</html>
