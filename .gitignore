@@ -5,3 +5,5 @@
 *.log
 dist/
 build/
+.cwmignore
+.cwminclude
